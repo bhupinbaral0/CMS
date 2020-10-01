@@ -1,0 +1,47 @@
+ {% extends 'staff_home.html' %}
+{% load static %}
+{% block content %}
+
+<html>
+    <head>
+    </head>
+
+    <body>  
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">OrderItem.id</th>
+                <th scope="col">Product</th>
+                <th scope="col">Order</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Date added</th>
+                <th scope="col">Transaction_id</th>
+                <th scope="col">Verification_code</th>
+                <th scope="col">check</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for item in orderitem %}
+                
+                    <tr>
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.product_id}}</td>
+                        <td>{{item.order_id}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.date_added|date:"DATETIME_FORMAT"}}</td>
+                        <td>***</td>
+                        <td>***</td>
+                        <td>
+                            <button class="item-deliver" data-id="{{item.id}}" data-action="deliver" >check transaction</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            
+            
+            </tbody>
+        </table>
+    </body>
+
+{% endblock content %}
+</html>

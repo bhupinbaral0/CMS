@@ -1,0 +1,79 @@
+{% extends 'staff_home.html' %}
+{% load static %}
+{% block content %}
+
+<html>
+    <head>
+    </head>
+
+    <body>
+        <!-- <h3 style="float:left;"> Current pending items summary:</h3> -->
+        <table class="table table-dark" style="width:38%; float:left;margin:1%;">
+            <thead>
+                <tr>
+                   
+                    <th scope="col">Product id</th>
+                    <th scope="col">Product name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">pending order date</th>
+                    
+
+                </tr>
+            </thead>
+
+            <tbody>
+            
+            
+               {% for item in item_detail %}
+                    {% if item.quantity >= 1 %}
+                        <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td>{{item.name}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.date}}</td>
+                            
+                        </tr>
+                   
+                    {% endif %}
+                              
+               {% endfor %}
+                
+        
+            </tbody>
+        </table>
+
+        <!-- <h3 style="float:left;"> More details about order items: </h3> -->
+        <table class="table table-striped" style="width:58%; float:left;margin:1%;">
+            <thead>
+                <tr>
+                <th scope="col">OrderItem_id</th>
+                <th scope="col">Product</th>
+                <th scope="col">Order</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Date added</th>
+                <th scope="col">Prepare Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for item in orderitem %}
+                
+                    <tr>
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.product_id}}</td>
+                        <td>{{item.order_id}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.date_added|date:"DATETIME_FORMAT"}}</td>
+                        <td>
+                            <button class="item-prepare" data-id="{{item.id}}" data-action="prepare" >Mark prepared</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            
+            
+            </tbody>
+        </table>
+    </body>
+
+{% endblock content %}
+</html>

@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+
+  <body>
+  <span style="height:90%;width=90%;">
+       
+        <table class="table table-dark" style="width:30%; float:left;margin:1%;">
+            <thead>
+                <tr>
+                   
+                    <th scope="col">orderitem id</th>
+                    <th scope="col">Product id</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"> date added</th>
+                    <th scope="col">prepare </th>
+                    <th scope="col">Verification code</th>
+                    
+                   
+
+                </tr>
+            </thead>
+
+            <tbody>
+            
+            
+               {% for item in remaining_orderitems %}
+                  
+                        <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td>{{item.product_id}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.date_added}}</td>
+                            <td>{{item.prepare}}</td>
+                            {% for ord in orders %}
+                                {% ifequal item.order_id ord.id %}
+                                    <td>{{ord.verification_code}}
+                           
+                            {% endifequal %}
+                            {%endfor%}
+                        </tr>
+                   
+                  
+                              
+               {% endfor %}
+                
+        
+            </tbody>
+        </table>
+
+        <!-- <h3 style="float:left;"> More details about order items: </h3> -->
+        <table class="table table-striped" style="width:50%; float:left;margin:1%;">
+            <thead>
+                <tr>
+                    <th scope="col">orderitem id</th>
+                    <th scope="col">Product id</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"> date added</th>
+                    <th scope="col"> Deliver </th>
+                   
+                <tr>
+            </thead>
+            <tbody>
+            
+                {% for item in completed_orderitems%}
+                
+                    <tr>
+                        <tr>
+                            <th scope="row">{{item.id}}</th>
+                            <td>{{item.product_id}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.date_added}}</td>
+                            <td>{{item.deliver}}</td>
+                           
+                        </tr>
+                   
+                    </tr>
+                {% endfor %}
+            
+            
+            </tbody>
+        </table>
+    </span>
+    </body>
+
+
+
+
+{% endblock content %}

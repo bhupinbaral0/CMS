@@ -1,0 +1,43 @@
+{% extends 'staff_home.html' %}
+{% load static %}
+{% block content %}
+
+<html>
+    <head>
+    </head>
+
+    <body> 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">Product_id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Availablity</th>
+                <th scope="col">Change_status</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for item in product %}
+                
+                    <tr>
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.name}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.available}}</td>
+                        <td>
+                            <button class="product-available" data-id="{{item.id}}" data-action="{{item.available}}" > change</button>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            
+            
+            </tbody>
+        </table>
+
+    </body>
+    {% endblock content %}
+</html>
