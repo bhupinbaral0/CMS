@@ -67,7 +67,7 @@ def profile(request):
     if OrderItem.objects.get(order_id__in=remaining_orders,deliver=False,prepare=True):
         notification.notify(
             title="item prepared",
-            message="your message here",
+            message="your notification message here",
             timeout=10
         )
 
