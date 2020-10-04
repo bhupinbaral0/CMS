@@ -5,6 +5,8 @@ from store.models import *
 from django.utils import timezone
 from django.http import JsonResponse
 import json
+import serial
+import time
 # Create your views here.
 
 def current_demands(request):
@@ -194,7 +196,27 @@ def product_details(request):
     if request.user.is_superuser:
         product=Product.objects.all()
 
-        return render(request,"product_details.html",{"product":product})
+      
+
+        try:
+            ser = serial.Serial('COM3', 9600,timeout=5)
+            if ser.isOpen():
+                print(ser.name + ' is open..')
+                for item in product:
+                    product_string=str(item.name)+str("_")+str(item.available)+str(" ")
+                    ser.write(product_string.encode())
+                    ser.flushInput()
+                    ser.flushOutput()
+                    ser.flush()
+                    print("Sending data")
+                    time.sleep(2)
+
+        except :
+            print("ERROR connecting to port")
+            print("Error on sending data")
+            
+        finally:
+            return render(request,"product_details.html",{"product":product})
 
 def update_product_available(request):
     data=json.loads(request.body)
@@ -219,4 +241,11 @@ def update_product_available(request):
     else:
         print("do nothing")
         input()
+
+
+
+
+
+
+
     return JsonResponse(" product status is changed",safe=False)  
