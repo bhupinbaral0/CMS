@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth 
 from django.contrib import messages
 from store.models import Customer,Order,OrderItem
+from plyer import notification
 # Create your views here.
 
 def login(request):
@@ -62,6 +63,15 @@ def profile(request):
 
     completed_orders=Order.objects.filter(customer_id=cust_id,complete=True)
     completed_orderitems=OrderItem.objects.filter(order_id__in=completed_orders,deliver=True)
+
+    if OrderItem.objects.get(order_id__in=remaining_orders,deliver=False,prepare=True):
+        notification.notify(
+            title="item prepared",
+            message="your message here",
+            timeout=10
+        )
+
+
 
     return render(request,"profile.html",{"remaining_orderitems":remaining_orderitems,"completed_orderitems":completed_orderitems,"balance":balance,"orders":remaining_orders})
 
