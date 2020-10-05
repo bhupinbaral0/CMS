@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'account.apps.AccountConfig',
     'staff.apps.StaffConfig',
+    'hardware.apps.HardwareConfig',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'canteen.urls'
@@ -141,3 +142,12 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sec073bex@gmail.com'
+EMAIL_HOST_PASSWORD = 'sec073bex@gmail'
