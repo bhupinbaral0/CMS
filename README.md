@@ -9,3 +9,5 @@ postgresql
 pillow
 pgAdmin
 psycopg2
+
+Also dont forgot to makemigration and migrate
