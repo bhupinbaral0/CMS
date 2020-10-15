@@ -4,21 +4,35 @@
 
 <html>
     <head>
+    <style>
+    		body {
+    			text-align:center;
+    			background-color: lightblue;
+    			opacity: 0.9; 
+    			border: 2px solid black;
+  				padding: 10px;
+
+    			}
+
+		</style>
     </head>
 
-   
+
     {% if request.user.is_authenticated %}
     hahahaha
     {%else%}
     <body>
         <form action="{% url 'login' %}" method='POST'>
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Username">
-            <br><input type="password" name="password" placeholder="password">
+            <marquee behavior="alternate"><font color="blue" style="font-size: 30px;">Canteen Of <a href="http://sagarmatha.edu.np/" target="_blank" style="text-decoration: none;">Sagarmatha Engineering College</a> </font><br></marquee><br>
+
+            		<br>
+            <b>Username:</b> <input type="text" name="username" placeholder="Username"><br><br>
+            <b>Password:</b> <input type="password" name="password" placeholder="password"><br><br>
             <input type="submit">
         </form>
 
-        
+
         <div>
             {% for message in messages %}
                 <h3> {{message}}

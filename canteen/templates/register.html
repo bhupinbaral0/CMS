@@ -4,17 +4,30 @@
 
 <html>
     <head>
+        <style>
+    		body {
+    			text-align:center;
+    			background-color: lightblue;
+    			opacity: 1; 
+    			border: 2px solid black;
+  				padding: 10px;
+
+            }
+		</style>
     </head>
     <body>
+
+    <legend>ENTER YOUR DETAILS </legend>
         <form action="{% url 'register' %}" method = 'POST'>
             {% csrf_token %}
-            <input type="text" name="first_name" placeholder="First name"><br>
-            <input type="text" name="last_name" placeholder="last name"><br>
-            <input type="email" name="email" placeholder="Email"><br>
-            <input type="text" name="username" placeholder="USERNAME"><br>
-            <input type="password" name="password1" placeholder="Password"><br>
-            <input type="password" name="password2" placeholder="Conform Password"><br>
-            <input type="submit"><br>     
+            <marquee behavior="alternate"><font color="blue" style="font-size: 30px;">Canteen Of <a href="http://sagarmatha.edu.np/" target="_blank" style="text-decoration: none;">Sagarmatha Engineering College</a> </font><br></marquee><br><br>
+            <b>First Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </b><input type="text" name="first_name" placeholder="First name" required = "required" ><br><br>
+            <b>Last Name: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </b><input type="text" name="last_name" placeholder="Last name" required = "required" ><br><br>
+            <b>Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp &nbsp </b><input type="email" name="email" placeholder="Email" required = "required" ><br><br>
+            <b>Username: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </b><input type="text" name="username" placeholder="Username" required = "required" ><br><br>
+            <b>Password: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp &nbsp</b><input type="password" name="password1" placeholder="Password" required = "required" ><br><br>
+            <b>Conform Password: </b><input type="password" name="password2" placeholder="Conform Password" required = "required" ><br><br>
+            <input type="submit"><br>     <br>
         </form>       
 
         <div>
