@@ -23,6 +23,7 @@ urlpatterns = [
     path('',include("store.urls")),
     path('account/',include("account.urls")),
     path('staff/',include("staff.urls")),
+    path('hardware/',include("hardware.urls")),
 ]
 
 urlpatterns= urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

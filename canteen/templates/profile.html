@@ -1,6 +1,11 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
+   <head>
+
+     <meta http-equiv="refresh" content="15">  
+
+   </head>
 
 
   <body>
@@ -16,7 +21,7 @@
                     <th scope="col"> date added</th>
                     <th scope="col">prepare </th>
                     <th scope="col">Verification code</th>
-                    
+                    <th scope="col">transaction_id</th>
                    
 
                 </tr>
@@ -36,6 +41,7 @@
                             {% for ord in orders %}
                                 {% ifequal item.order_id ord.id %}
                                     <td>{{ord.verification_code}}
+                                    <td>{{ord.transaction_id}}
                            
                             {% endifequal %}
                             {%endfor%}

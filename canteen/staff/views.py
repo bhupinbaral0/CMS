@@ -7,6 +7,8 @@ from django.http import JsonResponse
 import json
 import serial
 import time
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 
 def current_demands(request):
@@ -66,9 +68,34 @@ def update_order_item(request):
     orderItem= OrderItem.objects.get(id=orderItemId,prepare=False,deliver=False)
     orderItem.prepare=True
     orderItem.save()
+    order=Order.objects.get(id=orderItem.order_id)
 
-   
-    return JsonResponse("order item is updated",safe=False)   
+    try:
+        ser = serial.Serial('COM8', 9600)
+        if ser.isOpen():
+            print(ser.name + ' is open.. while mark preparing')
+            txid= order.transaction_id
+            txid=str(",")+str(txid)
+            print("txid is",txid)
+            ser.write(txid.encode())
+            
+            
+    except:
+        print("Error writing on serial port com8")
+
+    finally:
+        customer_email=User.objects.get(username=Customer.objects.get(id=Order.objects.get(id=orderItem.order_id).customer_id).user).email
+        try:
+            subject = 'Thank you for registering to our site'
+            message = ' it  means a world to us '
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [customer_email]
+            send_mail( subject, message, email_from, recipient_list )
+            print("mail sent to",customer_email)
+        except:
+            print("sending message fail")
+        finally:   
+            return JsonResponse("order item is updated",safe=False)   
 
 
 def pending_deliver(request):
@@ -189,6 +216,13 @@ def update_deliver(request):
     orderItem.deliver=True
     orderItem.save()
 
+
+
+
+
+
+
+
    
     return JsonResponse(" order item is delivered",safe=False)  
 
@@ -199,17 +233,35 @@ def product_details(request):
       
 
         try:
-            ser = serial.Serial('COM3', 9600,timeout=5)
+            ser = serial.Serial('COM3', 9600)
             if ser.isOpen():
-                print(ser.name + ' is open..')
+                print(ser.name + ' is open.. in product details')
+                i=int(0)
+                
                 for item in product:
-                    product_string=str(item.name)+str("_")+str(item.available)+str(" ")
-                    ser.write(product_string.encode())
-                    ser.flushInput()
-                    ser.flushOutput()
-                    ser.flush()
-                    print("Sending data")
-                    time.sleep(2)
+                    if item.available:
+                        if i==0:
+                            length=0
+                            product_string=str("@")+str(item.id)+str(" ")+str(item.name)+str(" ")+str(item.price)+str("#")
+                            i=i+1
+                            
+                        else:
+                            product_string=str(item.id)+str(" ")+str(item.name)+str(" ")+str(item.price)+str("#")
+                            i=i+1
+                            
+                        
+                        
+                        length+=len(product_string)
+                                     
+                        if(length>40):
+                            time.sleep(14)
+                            length=0
+                        
+                        ser.write(product_string.encode())
+
+
+                       
+            
 
         except :
             print("ERROR connecting to port")
