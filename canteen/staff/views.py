@@ -71,31 +71,33 @@ def update_order_item(request):
     order=Order.objects.get(id=orderItem.order_id)
 
     try:
-        ser = serial.Serial('COM8', 9600)
+        ser = serial.Serial('COM3', 9600)
         if ser.isOpen():
             print(ser.name + ' is open.. while mark preparing')
             txid= order.transaction_id
-            txid=str(",")+str(txid)
+
+            txid=str("&")+str(txid)
             print("txid is",txid)
             ser.write(txid.encode())
+            ser.close()
             
             
     except:
-        print("Error writing on serial port com8")
+        print("Error writing on serial port com3 while marked preparing")
 
     finally:
-        customer_email=User.objects.get(username=Customer.objects.get(id=Order.objects.get(id=orderItem.order_id).customer_id).user).email
-        try:
-            subject = 'Thank you for registering to our site'
-            message = ' it  means a world to us '
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [customer_email]
-            send_mail( subject, message, email_from, recipient_list )
-            print("mail sent to",customer_email)
-        except:
-            print("sending message fail")
-        finally:   
-            return JsonResponse("order item is updated",safe=False)   
+        # customer_email=User.objects.get(username=Customer.objects.get(id=Order.objects.get(id=orderItem.order_id).customer_id).user).email
+        # try:
+        #     subject = 'Thank you for registering to our site'
+        #     message = ' it  means a world to us '
+        #     email_from = settings.EMAIL_HOST_USER
+        #     recipient_list = [customer_email]
+        #     send_mail( subject, message, email_from, recipient_list )
+        #     print("mail sent to",customer_email)
+        # except:
+        #     print("sending message fail")
+        # finally:   
+        return JsonResponse("order item is updated",safe=False)   
 
 
 def pending_deliver(request):
@@ -236,32 +238,22 @@ def product_details(request):
             ser = serial.Serial('COM3', 9600)
             if ser.isOpen():
                 print(ser.name + ' is open.. in product details')
-                i=int(0)
+                ser.write("@".encode())
+                
                 
                 for item in product:
                     if item.available:
-                        if i==0:
-                            length=0
-                            product_string=str("@")+str(item.id)+str(" ")+str(item.name)+str(" ")+str(item.price)+str("#")
-                            i=i+1
-                            
-                        else:
-                            product_string=str(item.id)+str(" ")+str(item.name)+str(" ")+str(item.price)+str("#")
-                            i=i+1
-                            
-                        
-                        
-                        length+=len(product_string)
-                                     
-                        if(length>40):
-                            time.sleep(14)
-                            length=0
-                        
+
+                        product_string=str(",")+str(item.id)+str(" ")+str(item.name)+str(" ")+str(item.price)
                         ser.write(product_string.encode())
+                        print(product_string)
+                        time.sleep(4)
+                        
 
-
-                       
-            
+                ser.write("#".encode())
+                ser.close()
+            else:
+                print("... is not open in product details")
 
         except :
             print("ERROR connecting to port")
