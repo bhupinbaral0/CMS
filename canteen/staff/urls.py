@@ -10,4 +10,5 @@ urlpatterns = [
     path('update_deliver/',views.update_deliver,name="update_deliver"),
     path('product_details/',views.product_details,name="product_details"),
     path('update_product_available/',views.update_product_available, name="update_product_available"),
+    path('predict_orders/', views.predict_orders, name="predict_orders"),
     ]
