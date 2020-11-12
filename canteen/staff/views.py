@@ -9,6 +9,7 @@ import serial
 import time
 from django.core.mail import send_mail
 from django.conf import settings
+from json import dumps 
 # Create your views here.
 
 def current_demands(request):
@@ -293,3 +294,12 @@ def update_product_available(request):
 
 
     return JsonResponse(" product status is changed",safe=False)  
+
+def predict_orders(request):
+    dataDictionary = { 
+            
+            'ABC': 123, 
+    }
+
+    dataJSON = dataDictionary
+    return render(request,"predict_orders.html",{"values":dataJSON})
