@@ -1,0 +1,26 @@
+ {% extends 'staff_home.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en-US">
+<body>
+
+<h3>My Web Page</h3>
+
+<div id="piechart"></div>
+
+
+
+<script type="text/javascript">
+var test="{{values}}";
+for(var x in test){ 
+     console.log(test[x]);
+      
+      } 
+</script>
+
+</body>
+{% endblock content %}
+</html>
