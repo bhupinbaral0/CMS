@@ -296,10 +296,37 @@ def update_product_available(request):
     return JsonResponse(" product status is changed",safe=False)  
 
 def predict_orders(request):
-    dataDictionary = { 
-            
-            'ABC': 123, 
-    }
 
-    dataJSON = dataDictionary
-    return render(request,"predict_orders.html",{"values":dataJSON})
+    orderitem=OrderItem.objects.filter(prepare=True)
+
+    datalist=["coffee"]
+    
+    for item in orderitem:
+        orderitem.product_id=Product.objects.get(id=item.product_id).name
+        already_exist=False
+
+        for item in datalist:
+            if item==orderitem.product_id:
+                
+                already_exist = True
+                break
+        if already_exist != True:
+            datalist.append(orderitem.product_id)
+            
+        
+
+    print(datalist)
+    
+    dataDictionary={"product":"consumption"}
+    for product_list in datalist:
+        dataDictionary[product_list]=0
+        for item in orderitem:
+            if Product.objects.get(id=item.product_id).name==product_list:
+                dataDictionary[product_list]=dataDictionary[product_list]+1
+
+        
+
+
+    print(dataDictionary)
+    dataDictionary=dumps(dataDictionary)
+    return render(request,"predict_orders.html",{"values":dataDictionary})
