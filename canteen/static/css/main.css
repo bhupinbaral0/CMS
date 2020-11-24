@@ -1,10 +1,14 @@
+html{
+	background-color:white;
+}
+
 body{
 	margin-left: 5px;
-	background-color: yellow;
+	
 }
 
 h1,h2,h3,h4,h5,h6{
-	color:hsl(0, 0%, 30%);
+	color:hsl(0, 80%, 8%);
 }
 
 .box-element{
@@ -59,7 +63,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .row-image{
-	width: 75%
+	width: 75%;
 }
 
 .form-field{
