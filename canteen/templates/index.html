@@ -1,110 +1,136 @@
 {% load static %}
 <html>
-    <head>
-        <title>Sagarmatha Engineering college</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-       
+<head>
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
-        <script type="text/javascript">
-		    var user = '{{request.user}}'
-                function getToken(name) {
-                    var cookieValue = null;
-                    if (document.cookie && document.cookie !== '') {
-                        var cookies = document.cookie.split(';');
-                        for (var i = 0; i < cookies.length; i++) {
-                            var cookie = cookies[i].trim();
-                            // Does this cookie string begin with the name we want?
-                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                break;
-                            }
-                        }
+
+
+    <title>Sagarmatha Engineering college</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+
+    <style>
+    body{
+        background-color: white;
+        margin-left: 10px;
+    }
+    
+    </style>
+
+
+
+
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
                     }
-                    return cookieValue;
-                 
                 }
+            }
+            return cookieValue;
 
-            var csrftoken = getToken('csrftoken');
-        </script>
-        
+        }
 
-
-
-
-
+        var csrftoken = getToken('csrftoken');
+    </script>
 
 
-    </head>
 
 
-    <body>
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            {% if user.is_staff %}
-                <a class="navbar-brand" href="{% url 'current_demands' %}">Canteen</a>
-            {% endif %}
-           
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
-                    </li>
-
-                        {% if user.is_authenticated %}
-                        
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'logout' %}">logout <span class="sr-only"></span></a>
-                            </li>
-                           
-                        {% else %}
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only"></span></a>
-                            </li>
-
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'register' %}">Register <span class="sr-only"></span></a>
-                            </li>
-                        {% endif%}
 
 
-                </ul>
-                
-                
+
+
+</head>
+
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        {% if user.is_staff %}
+        <a class="navbar-brand" href="{% url 'current_demands' %}">Canteen</a>
+        {% endif %}
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
+                </li>
 
                 {% if user.is_authenticated %}
-                    <div class="form-inline my-2 my-lg-0">
 
-                        <a href="{% url 'profile' %}"class="btn btn-warning">Hello {{user.first_name}}</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'logout' %}">logout <span class="sr-only"></span></a>
+                </li>
 
-                        <h5 style="color:yellow;"> Current_Balance: {{balance}} </h5>
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'login' %}">Login <span class="sr-only"></span></a>
+                </li>
 
-                        <a href="{% url 'cart' %}">
-                            <img  id="cart-icon" src="{% static 'images/cart.png' %}">
-                        </a>
-                        <p id="cart-total">{{cartItems}}</p>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'register' %}">Register <span class="sr-only"></span></a>
+                </li>
+                {% endif%}
 
-                    </div>
-                {%endif%}
+
+            </ul>
+
+
+
+            {% if user.is_authenticated %}
+            <div class="form-inline my-2 my-lg-0">
+
+                <a href="{% url 'profile' %}" class="btn btn-warning">Hello {{user.first_name}}</a>
+
+                <h5 style="color:yellow;"> Current_Balance: {{balance}} </h5>
+
+                <a href="{% url 'cart' %}">
+                    <img id="cart-icon" src="{% static 'images/cart.png' %}">
+                </a>
+                <p id="cart-total">{{cartItems}}</p>
+
             </div>
-        </nav>
+            {%endif%}
+        </div>
+    </nav>
 
-        <hr>
-        {% block content %}
-        {% endblock %}  
-        <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
-        
+    <hr>
+    {% block content %}
+    {% endblock %}
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
 
-    </body>
-    
+
+</body>
+
 </html>
