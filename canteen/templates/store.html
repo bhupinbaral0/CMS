@@ -7,15 +7,16 @@
 
 				
 			
-				<div class="col-lg-3">
-					<img class="thumbnail" src="{{product.image.url}}">
+				<div  class="col-lg-3" style="box-shadow: 2px 2px 2px 2px #d9d9d9;" >
+					<img  class="thumbnail" src="{{product.image.url}}">
 					<div class="box-element product">
-						<h6><strong>{{product.name}}</strong></h6>
+						<h6 ><strong>{{product.name}}</strong></h6>
 						<hr>
 						{% if user.is_authenticated %}
-							<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+							<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart " style="background-color:#0099cc
+							;color: white;">Add to Cart</button>
 						{% endif %}
-						<a class="btn btn-outline-success" href="#">View</a>
+						<a class="btn btn-outline-success" style="background-color:#ffa31a;color: white;" href="#">View</a>
 						<h4 style="display: inline-block; float: right"><strong>{{product.price}} </strong></h4>
 
 					</div>
