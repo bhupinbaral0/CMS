@@ -330,3 +330,18 @@ def predict_orders(request):
     print(dataDictionary)
     dataDictionary=dumps(dataDictionary)
     return render(request,"predict_orders.html",{"values":dataDictionary})
+
+def update_balance(request):
+    if request.method == 'POST':
+        cust_username = request.POST['cust_id']
+        update_balance= request.POST['update_balance']
+
+        cust = Customer.objects.filter(user=request.user)
+        
+        cust.balance+=int(update_balance)
+        new_balance=cust.balance
+        cust.save()
+    else:
+        new_balance=0
+    return render(request,"update_balance.html",{'new_balance':new_balance})
+    
