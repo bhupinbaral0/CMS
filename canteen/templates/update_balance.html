@@ -1,0 +1,14 @@
+<html>
+    your balance is {{new_balance}}
+
+
+
+
+    <form action="{% url 'update_balance' %}" method='POST'>
+        {% csrf_token %}
+        <b>Username:</b> <input type="text" name="cust_id" placeholder="ID"><br><br>
+        <b>Add balance:</b> <input type="number" name="update_balance" placeholder="Add balance"><br><br>
+        <input type="submit">
+
+    </form>
+</html>
